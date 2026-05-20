@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>幣圈新手安全防禦港 | 腦哥 Chill 知識導航網</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons for beautiful clean icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            950: '#020617',
+                        },
+                        amber: {
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        },
+                        emerald: {
+                            500: '#10b981',
+                            600: '#059669',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap');
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #020617;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
+        }
+    </style>
+</head>
+<body class="bg-navy-950 text-slate-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-navy-950">
+
+    <!-- 頂部導航欄 -->
+    <header class="sticky top-0 z-40 bg-navy-900/90 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="p-2 bg-emerald-500/10 rounded-lg border border-emerald-500/20 text-emerald-500">
+                    <i data-lucide="shield-check" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <span class="font-bold text-lg sm:text-xl bg-gradient-to-r from-emerald-400 via-teal-300 to-amber-400 bg-clip-text text-transparent">
+                        腦哥學堂：安全防禦港
+                    </span>
+                    <span class="hidden sm:inline-block ml-2 text-xs text-slate-400 border border-slate-700 px-2 py-0.5 rounded-full">新手資安導航</span>
+                </div>
+            </div>
+            
+            <!-- 桌面端導航 -->
+            <nav class="hidden md:flex space-x-1">
+                <button onclick="switchTab('library')" id="nav-library" class="px-4 py-2 rounded-lg text-sm font-medium transition-all text-emerald-400 bg-slate-800/50">
+                    <span class="flex items-center gap-1.5"><i data-lucide="book-open" class="w-4 h-4"></i>知識防禦庫</span>
+                </button>
+                <button onclick="switchTab('diagnoser')" id="nav-diagnoser" class="px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-400 hover:text-slate-200">
+                    <span class="flex items-center gap-1.5"><i data-lucide="search-code" class="w-4 h-4"></i>防詐騙診斷</span>
+                </button>
+                <button onclick="switchTab('revoke-sim')" id="nav-revoke-sim" class="px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-400 hover:text-slate-200">
+                    <span class="flex items-center gap-1.5"><i data-lucide="refresh-cw" class="w-4 h-4"></i>授權解除模擬器</span>
+                </button>
+                <button onclick="switchTab('quiz')" id="nav-quiz" class="px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-400 hover:text-slate-200">
+                    <span class="flex items-center gap-1.5"><i data-lucide="brain-circuit" class="w-4 h-4"></i>思維心態測驗</span>
+                </button>
+                <button onclick="switchTab('faq')" id="nav-faq" class="px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-400 hover:text-slate-200">
+                    <span class="flex items-center gap-1.5"><i data-lucide="help-circle" class="w-4 h-4"></i>資安 FAQ</span>
+                </button>
+            </nav>
+
+            <div class="flex items-center space-x-2">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20 animate-pulse">
+                    <span class="h-1.5 w-1.5 rounded-full bg-amber-400 mr-1.5"></span>
+                    極度恐懼中 (30)
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- 行動端導航底欄 -->
+    <div class="md:hidden fixed bottom-0 left-0 right-0 bg-navy-900 border-t border-slate-800 z-50 px-2 py-1 flex justify-around">
+        <button onclick="switchTab('library')" id="m-nav-library" class="flex flex-col items-center py-1 text-emerald-400">
+            <i data-lucide="book-open" class="w-5 h-5"></i>
+            <span class="text-[10px] mt-1">防禦庫</span>
+        </button>
+        <button onclick="switchTab('diagnoser')" id="m-nav-diagnoser" class="flex flex-col items-center py-1 text-slate-400">
+            <i data-lucide="search-code" class="w-5 h-5"></i>
+            <span class="text-[10px] mt-1">防詐騙</span>
+        </button>
+        <button onclick="switchTab('revoke-sim')" id="m-nav-revoke-sim" class="flex flex-col items-center py-1 text-slate-400">
+            <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+            <span class="text-[10px] mt-1">模擬器</span>
+        </button>
+        <button onclick="switchTab('quiz')" id="m-nav-quiz" class="flex flex-col items-center py-1 text-slate-400">
+            <i data-lucide="brain-circuit" class="w-5 h-5"></i>
+            <span class="text-[10px] mt-1">測驗</span>
+        </button>
+        <button onclick="switchTab('faq')" id="m-nav-faq" class="flex flex-col items-center py-1 text-slate-400">
+            <i data-lucide="help-circle" class="w-5 h-5"></i>
+            <span class="text-[10px] mt-1">FAQ</span>
+        </button>
+    </div>
+
+    <!-- 主要內容區 -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full pb-24 md:pb-12">
+        
+        <!-- 橫幅公告 / 標頭 -->
+        <div class="mb-8 p-6 rounded-2xl bg-gradient-to-r from-navy-900 via-slate-900 to-navy-900 border border-slate-800 relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 opacity-10 text-emerald-500">
+                <i data-lucide="shield" class="w-48 h-48"></i>
+            </div>
+            <div class="relative z-10">
+                <span class="text-xs font-bold text-emerald-400 tracking-widest uppercase bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
+                    知識就是最頂級的冷錢包
+                </span>
+                <h1 class="mt-3 text-2xl sm:text-4xl font-black text-slate-100 tracking-tight leading-none">
+                    在幣圈黑暗森林中，<br class="sm:hidden"><span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-amber-300 bg-clip-text text-transparent">打造你的最強防禦裝備</span>
+                </h1>
+                <p class="mt-3 text-slate-400 max-w-2xl text-sm sm:text-base">
+                    本站根據「腦哥 Chill塊鏈」之核心安全知識庫製作。
+                    不論是防範 99% 駭客的 <code class="text-amber-400 font-mono bg-slate-800 px-1 py-0.5 rounded">Revoke</code> 取消授權、辨識詐騙留言，或是建立「本多終勝」的正確交易心態，在這裡一應俱全！
+                </p>
+            </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 1: 知識防禦庫 (Resource Library) -->
+        <!-- ============================================== -->
+        <div id="tab-library" class="tab-content block">
+            <!-- 搜尋與過濾器 -->
+            <div class="mb-6 flex flex-col sm:flex-row gap-3">
+                <div class="relative flex-grow">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+                        <i data-lucide="search" class="w-5 h-5"></i>
+                    </span>
+                    <input type="text" id="search-input" oninput="filterArticles()" placeholder="輸入關鍵字（例如：授權、冷錢包、詐騙、減半...）搜尋安全指南..." 
+                        class="w-full pl-10 pr-4 py-3 bg-navy-900 border border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm transition-all text-slate-200">
+                </div>
+                <div class="flex gap-2 overflow-x-auto pb-1 sm:pb-0">
+                    <button onclick="filterCategory('all')" id="btn-cat-all" class="px-4 py-2 bg-slate-800 text-emerald-400 text-xs font-bold rounded-lg whitespace-nowrap border border-slate-700 transition-all">
+                        全部
+                    </button>
+                    <button onclick="filterCategory('security')" id="btn-cat-security" class="px-4 py-2 bg-navy-900 hover:bg-slate-800 text-slate-400 hover:text-slate-200 text-xs font-bold rounded-lg whitespace-nowrap border border-slate-800/80 transition-all">
+                        資安防駭
+                    </button>
+                    <button onclick="filterCategory('scam')" id="btn-cat-scam" class="px-4 py-2 bg-navy-900 hover:bg-slate-800 text-slate-400 hover:text-slate-200 text-xs font-bold rounded-lg whitespace-nowrap border border-slate-800/80 transition-all">
+                        詐騙防範
+                    </button>
+                    <button onclick="filterCategory('mindset')" id="btn-cat-mindset" class="px-4 py-2 bg-navy-900 hover:bg-slate-800 text-slate-400 hover:text-slate-200 text-xs font-bold rounded-lg whitespace-nowrap border border-slate-800/80 transition-all">
+                        交易心態
+                    </button>
+                    <button onclick="filterCategory('macro')" id="btn-cat-macro" class="px-4 py-2 bg-navy-900 hover:bg-slate-800 text-slate-400 hover:text-slate-200 text-xs font-bold rounded-lg whitespace-nowrap border border-slate-800/80 transition-all">
+                        宏觀減半
+                    </button>
+                </div>
+            </div>
+
+            <!-- 文章卡片網格 -->
+            <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 由 JavaScript 動態生成，或直接渲染並過濾 -->
+            </div>
+            
+            <!-- 無搜尋結果提示 -->
+            <div id="no-results" class="hidden text-center py-12">
+                <div class="inline-flex p-4 bg-slate-900 rounded-full border border-slate-800 text-slate-500 mb-3">
+                    <i data-lucide="search-slash" class="w-12 h-12"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-300">找不到符合的文章</h3>
+                <p class="text-xs text-slate-500 mt-1">試試其他關鍵字，或是切換全部分類。</p>
+            </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 2: 防詐騙診斷器 (Anti-Scam Diagnoser) -->
+        <!-- ============================================== -->
+        <div id="tab-diagnoser" class="tab-content hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- 檢測表單 -->
+                <div class="lg:col-span-2 p-6 rounded-2xl bg-navy-900 border border-slate-800">
+                    <div class="flex items-center space-x-2 mb-6 border-b border-slate-800 pb-4">
+                        <div class="p-2 bg-amber-500/10 rounded-lg text-amber-500">
+                            <i data-lucide="shield-alert" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold">防詐騙及項目安全性檢測</h2>
+                            <p class="text-xs text-slate-400">如果您遇到可疑的投資機會或社群訊息，請勾選以下特徵進行即時診斷：</p>
+                        </div>
+                    </div>
+
+                    <form id="diagnoser-form" onchange="calculateScamRisk()">
+                        <!-- 類別一：時間與壓力 -->
+                        <div class="mb-6">
+                            <h3 class="text-sm font-bold text-slate-300 mb-3 flex items-center gap-1.5">
+                                <span class="w-1.5 h-3 bg-amber-500 rounded-full"></span> 1. 話術與施壓感
+                            </h3>
+                            <div class="space-y-3 pl-3">
+                                <label class="flex items-start text-sm text-slate-400 hover:text-slate-200 cursor-pointer group">
+                                    <input type="checkbox" value="25" class="mt-1 mr-3 h-4 w-4 rounded border-slate-700 bg-slate-800 text-emerald-500 focus:ring-emerald-500">
+                                    <span>項目方或推廣者極度催促，強調<strong class="text-amber-400">「現在不買就來不及了、名額限時倒數」</strong>，刻意不留時間讓您查證。</span>
+                                </label>
+                                <label class="flex items-start text-sm text-slate-400 hover:text-slate-200 cursor-pointer group">
+                                    <input type="checkbox" value="20" class="mt-1 mr-3 h-4 w-4 rounded border-slate-700 bg-slate-800 text-emerald-500 focus:ring-emerald-500">
+                                    <span>承諾<strong class="text-amber-400">「百分之百穩賺不賠」</strong>、「月收益暴賺數十倍」等完全不符合市場常規的報酬。</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- 類別二：留言與傳銷 -->
+                        <div class="mb-6">
+                            <h3 class="text-sm font-bold text-slate-300 mb-3 flex items-center gap-1.5">
+                                <span class="w-1.5 h-3 bg-amber-500 rounded-full"></span> 2. 推廣與管道特徵
+                            </h3>
+                            <div class="space-y-3 pl-3">
+                                <label class="flex items-start text-sm text-slate-400 hover:text-slate-200 cursor-pointer group">
+                                    <input type="checkbox" value="30" class="mt-1 mr-3 h-4 w-4 rounded border-slate-700 bg-slate-800 text-emerald-500 focus:ring-emerald-500">
+                                    <span>在 Youtube/Telegram/FB 留言區看到大量頭像類似的假帳號<strong class="text-amber-400">洗版推薦同一幣種（如 GROK72, GR725F 等）</strong>，並貼上造假的「新聞連結」或「大佬認可圖」。</span>
+                                </label>
+                                <label class="flex items-start text-sm text-slate-400 hover:text-slate-200 cursor-pointer group">
+                                    <input type="checkbox" value="25" class="mt-1 mr-3 h-4 w-4 rounded border-slate-700 bg-slate-800 text-emerald-500 focus:ring-emerald-500">
+                                    <span>網路上自稱官方人員或「幣圈大佬」<strong class="text-amber-400">主動私訊</strong>，並向你兜售「尚未上市的私募代幣（私募幣）」或拉你進神秘投顧群。</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- 類別三：出金與隱私 -->
+                        <div class="mb-6">
+                            <h3 class="text-sm font-bold text-slate-300 mb-3 flex items-center gap-1.5">
+                                <span class="w-1.5 h-3 bg-amber-500 rounded-full"></span> 3. 資金提款與極端索求
+                            </h3>
+                            <div class="space-y-3 pl-3">
+                                <label class="flex items-start text-sm text-slate-400 hover:text-slate-200 cursor-pointer group">
+                                    <input type="checkbox" value="35" class="mt-1 mr-3 h-4 w-4 rounded border-slate-700 bg-slate-800 text-emerald-500 focus:ring-emerald-500">
+                                    <span>平台出金設定極不合理的门槛或費用，例如<strong class="text-amber-400">「單次限額出金 1000U，但需支付 999U 的手續費」</strong>（JPEX 跑路前置套路）或出金必須先繳納高額「保證金」。</span>
+                                </label>
+                                <label class="flex items-start text-sm text-slate-400 hover:text-slate-200 cursor-pointer group">
+                                    <input type="checkbox" value="40" class="mt-1 mr-3 h-4 w-4 rounded border-slate-700 bg-slate-800 text-emerald-500 focus:ring-emerald-500">
+                                    <span>對方向你索取<strong class="text-amber-400">「私密照片、助記詞、或者未去馬賽克的身分證件」</strong>，甚至在發生糾紛時揚言要公開您的個人隱私。</span>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- 診斷儀表板 -->
+                <div class="p-6 rounded-2xl bg-navy-900 border border-slate-800 flex flex-col justify-between h-fit lg:sticky lg:top-24">
+                    <div>
+                        <h3 class="text-lg font-bold mb-4">即時診斷報告</h3>
+                        
+                        <!-- 風險進度條 -->
+                        <div class="mb-6">
+                            <div class="flex justify-between items-end mb-2">
+                                <span class="text-xs text-slate-400">綜合評估風險度</span>
+                                <span id="risk-score-text" class="text-2xl font-black text-emerald-400">0%</span>
+                            </div>
+                            <div class="w-full bg-slate-800 rounded-full h-3 overflow-hidden">
+                                <div id="risk-bar" class="bg-emerald-500 h-full w-0 transition-all duration-500"></div>
+                            </div>
+                        </div>
+
+                        <!-- 風險等級 Badge -->
+                        <div id="risk-badge" class="mb-6 px-4 py-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm font-semibold flex items-center gap-2">
+                            <i data-lucide="check-circle" class="w-5 h-5 flex-shrink-0"></i>
+                            <span>目前安全：無偵測到可疑特徵。</span>
+                        </div>
+
+                        <!-- 具體防護指引 -->
+                        <div class="space-y-3">
+                            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">腦哥防身小提醒</h4>
+                            <ul id="risk-tips" class="text-xs text-slate-300 space-y-2 list-disc pl-4">
+                                <li>始終牢記「不賺不屬於自己的錢」。遇到不懂的代幣，絕對不要跟風梭哈。</li>
+                                <li>項目方的背景需要交叉驗證。正規活動絕對不會以「私訊」形式要求您購買特定幣種。</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <button onclick="resetDiagnoser()" class="mt-8 w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-xl text-xs font-bold transition-all border border-slate-700">
+                        重新檢測
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 3: 互動授權解除模擬器 (Interactive Revoke Simulator) -->
+        <!-- ============================================== -->
+        <div id="tab-revoke-sim" class="tab-content hidden">
+            <div class="p-6 rounded-2xl bg-navy-900 border border-slate-800 mb-8">
+                <h2 class="text-xl font-bold mb-2 flex items-center gap-2">
+                    <i data-lucide="key-round" class="text-amber-400"></i>
+                    DeFi 安全急救訓練：代幣授權與 Revoke 模擬
+                </h2>
+                <p class="text-sm text-slate-400">
+                    當您使用去中心化交易所（DEX）或參與項目時，必須「授權 (Approve)」智能合約使用您的代幣。
+                    然而，如果該合約存在後門或被駭客劫持，駭客便能憑藉您之前的授權直接「提走」您的幣。
+                    <strong class="text-emerald-400">在現實世界中，請定期使用 Revoke.cash 或 Etherscan 取消未知合約。</strong> 
+                    以下為完全擬真的授權模擬管理介面，點選即可體驗：
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- 模擬錢包連結區 -->
+                <div class="lg:col-span-2 p-6 rounded-2xl bg-navy-900 border border-slate-800">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 pb-6 border-b border-slate-800">
+                        <div>
+                            <span class="text-xs text-slate-400">連線模擬鏈上狀態：以太坊 / BSC</span>
+                            <div class="flex items-center gap-2 mt-1">
+                                <span class="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                <span class="font-mono text-xs text-emerald-400 font-bold" id="sim-address">0x71C...392A (已連線)</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs text-slate-400">預估受威脅風險資產</span>
+                            <div class="text-lg font-black text-amber-500 font-mono" id="exposed-balance">$42,350 USDT</div>
+                        </div>
+                    </div>
+
+                    <!-- 模擬合約列表 -->
+                    <div class="space-y-4" id="allowance-list">
+                        <!-- 由 JS 動態繪製與管理，以展現即時互動性 -->
+                    </div>
+                </div>
+
+                <!-- 互動控制板 & 觀念學習 -->
+                <div class="p-6 rounded-2xl bg-navy-900 border border-slate-800 h-fit lg:sticky lg:top-24">
+                    <h3 class="text-md font-bold mb-4 flex items-center gap-1.5 text-slate-200">
+                        <i data-lucide="book-marked" class="text-emerald-400"></i>
+                        資安常識：如何拯救你的真實錢包？
+                    </h3>
+                    
+                    <div class="space-y-4 text-xs text-slate-300">
+                        <div class="p-3.5 bg-slate-950 rounded-xl border border-slate-800">
+                            <h4 class="font-bold text-slate-200 mb-1 flex items-center gap-1">
+                                <span class="text-amber-400">1</span>
+                                什麼是「無限授權 (Unlimited Approval)」？
+                            </h4>
+                            <p class="leading-relaxed text-slate-400">
+                                許多 DeFi 平台為了省去頻繁簽名的麻煩，會預設請求您授權「無限數量」的代幣（如 $2^{256}-1$ 個代幣）。這等於將錢包完全解防。
+                            </p>
+                        </div>
+
+                        <div class="p-3.5 bg-slate-950 rounded-xl border border-slate-800">
+                            <h4 class="font-bold text-slate-200 mb-1 flex items-center gap-1">
+                                <span class="text-emerald-400">2</span>
+                                現實中如何解除授權？
+                            </h4>
+                            <p class="leading-relaxed text-slate-400">
+                                1. 使用 <strong class="text-emerald-400">Revoke.cash</strong> 連接錢包。<br>
+                                2. 或者去以太坊瀏覽器 (Etherscan) 的 More -> <strong class="text-emerald-400">Token Approvals</strong> 功能，連線後即可逐一按 Revoke 解除。
+                            </p>
+                        </div>
+                        
+                        <div class="p-3.5 bg-emerald-500/10 rounded-xl border border-emerald-500/20 text-emerald-400">
+                            <h4 class="font-bold mb-1 flex items-center gap-1 text-emerald-300">
+                                <i data-lucide="info" class="w-4 h-4"></i>
+                                硬體冷錢包的護盾效應
+                            </h4>
+                            <p class="leading-relaxed">
+                                使用如 CoolWallet 等具備獨立安全晶片（EAL5+/EAL6+）的冷錢包。在簽署合約時，卡片上會進行二次確認與警告提示，並能利用專屬 App 檢測釣魚。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 4: 思維心態測驗 (Mindset Quiz) -->
+        <!-- ============================================== -->
+        <div id="tab-quiz" class="tab-content hidden">
+            <div class="max-w-3xl mx-auto p-6 rounded-2xl bg-navy-900 border border-slate-800">
+                <div class="flex items-center space-x-2 mb-6 pb-4 border-b border-slate-800">
+                    <div class="p-2 bg-emerald-500/10 rounded-lg text-emerald-500">
+                        <i data-lucide="brain-circuit" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold">幣圈「韭菜 vs OG」思維修煉測驗</h2>
+                        <p class="text-xs text-slate-400">
+                            牛市常十買九虧？回答 4 個極端市場情境題，測量您的思維抗鐮刀指數。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 測驗進度 -->
+                <div id="quiz-intro" class="text-center py-8">
+                    <div class="inline-flex p-4 bg-slate-900 rounded-full text-emerald-500 mb-4 border border-slate-800">
+                        <i data-lucide="award" class="w-12 h-12"></i>
+                    </div>
+                    <h3 class="text-lg font-bold">您準備好迎接考驗了嗎？</h3>
+                    <p class="text-xs text-slate-400 mt-2 max-w-md mx-auto leading-relaxed">
+                        本測驗模擬了中東黑天鵝戰爭、老牌代幣暴漲、安全儲存等情境。我們將以最專業的「腦哥觀點」評估您的心態。
+                    </p>
+                    <button onclick="startQuiz()" class="mt-6 px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-navy-950 text-sm font-bold rounded-xl transition-all shadow-lg shadow-emerald-500/20">
+                        開始修煉測驗
+                    </button>
+                </div>
+
+                <!-- 答題進行中 -->
+                <div id="quiz-question-container" class="hidden">
+                    <div class="flex justify-between items-center mb-6">
+                        <span id="quiz-progress-text" class="text-xs font-bold text-slate-400">問題 1 of 4</span>
+                        <div class="w-24 bg-slate-800 h-2 rounded-full overflow-hidden">
+                            <div id="quiz-progress-bar" class="bg-emerald-500 h-full w-0 transition-all"></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h3 id="quiz-question-title" class="text-base sm:text-lg font-bold text-slate-100 mb-4">題目載入中...</h3>
+                        <div id="quiz-options" class="space-y-3">
+                            <!-- JS 動態生成選項 -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 測驗結果呈現 -->
+                <div id="quiz-result-container" class="hidden text-center py-6">
+                    <h3 class="text-lg text-slate-400">您的修煉得分為</h3>
+                    <div class="text-5xl sm:text-7xl font-black text-emerald-400 font-mono my-4" id="quiz-score">85</div>
+                    <h4 class="text-xl font-bold text-slate-100" id="quiz-rank-title">幣圈鋼鐵人 (OG)</h4>
+                    
+                    <p class="mt-4 text-sm text-slate-300 max-w-lg mx-auto leading-relaxed" id="quiz-rank-desc">
+                        描述內容載入中...
+                    </p>
+
+                    <!-- 自訂警語模塊 -->
+                    <div class="mt-6 p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs text-slate-400 max-w-md mx-auto">
+                        💡 <strong>腦哥心法：</strong> 「不賺不屬於你的錢。在幣圈要能活得長、賺得多，看的是你的觀念與對工具的掌握，而非賭徒運氣。」
+                    </div>
+
+                    <button onclick="restartQuiz()" class="mt-8 px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-bold rounded-xl transition-all border border-slate-700">
+                        重新挑戰
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 5: 資安 FAQ (FAQ Section) -->
+        <!-- ============================================== -->
+        <div id="tab-faq" class="tab-content hidden">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl font-black">幣圈常見疑難解答與宏觀解密</h2>
+                    <p class="text-sm text-slate-400 mt-2">針對大眾最常感到恐慌的話題（量子危機、黑天鵝與 FUD）進行解答</p>
+                </div>
+
+                <div class="space-y-4" id="faq-container">
+                    <!-- FAQ 1 -->
+                    <div class="p-5 rounded-xl bg-navy-900 border border-slate-800 transition-all duration-300">
+                        <button onclick="toggleFAQ(1)" class="w-full flex justify-between items-center text-left text-slate-200 hover:text-white font-bold text-sm sm:text-base">
+                            <span>💡 量子電腦真的能在一夜之間竊取與砸盤比特幣嗎？</span>
+                            <i data-lucide="chevron-down" id="faq-icon-1" class="w-5 h-5 transition-transform duration-300"></i>
+                        </button>
+                        <div id="faq-answer-1" class="hidden mt-4 text-xs sm:text-sm text-slate-400 leading-relaxed pl-1.5 border-l-2 border-emerald-500/40">
+                            這是幣圈長期的基本面威脅。
+                            真正受威脅的是「公鑰已暴露」的特定地址。
+                            然而，量子電腦從技術實現到商業化成本極高，目前估計在 2030 年以前不具有大規模威脅性。
+                            如果量子危機臨近，比特幣社群可以採取「硬分叉（Hard Fork）」的方式，升級底層密碼學算法以抵禦量子解密，不需過度恐慌。
+                        </div>
+                    </div>
+
+                    <!-- FAQ 2 -->
+                    <div class="p-5 rounded-xl bg-navy-900 border border-slate-800 transition-all duration-300">
+                        <button onclick="toggleFAQ(2)" class="w-full flex justify-between items-center text-left text-slate-200 hover:text-white font-bold text-sm sm:text-base">
+                            <span>💡 當伊朗、以色列衝突黑天鵝爆發，比特幣是「數位黃金」還是危險資產？</span>
+                            <i data-lucide="chevron-down" id="faq-icon-2" class="w-5 h-5 transition-transform duration-300"></i>
+                        </button>
+                        <div id="faq-answer-2" class="hidden mt-4 text-xs sm:text-sm text-slate-400 leading-relaxed pl-1.5 border-l-2 border-emerald-500/40">
+                            在戰爭黑天鵝爆發初期，全體風險資產（包括股市、加密貨幣）往往會由於市場流動性緊縮與恐慌性拋售而同步閃崩回踩。這時它扮演的是「極端流動性資產」。
+                            但是隨後，當市場意識到法定貨幣通膨與地緣管制時，比特幣作為去中心化、無國界特性的「數位黃金」共識往往會修復並帶動強力反彈。應冷靜分析局勢。
+                        </div>
+                    </div>
+
+                    <!-- FAQ 3 -->
+                    <div class="p-5 rounded-xl bg-navy-900 border border-slate-800 transition-all duration-300">
+                        <button onclick="toggleFAQ(3)" class="w-full flex justify-between items-center text-left text-slate-200 hover:text-white font-bold text-sm sm:text-base">
+                            <span>💡 項目方或推文推薦的「私募代幣」暴跌，還索取私密照怎麼辦？</span>
+                            <i data-lucide="chevron-down" id="faq-icon-3" class="w-5 h-5 transition-transform duration-300"></i>
+                        </button>
+                        <div id="faq-answer-3" class="hidden mt-4 text-xs sm:text-sm text-slate-400 leading-relaxed pl-1.5 border-l-2 border-emerald-500/40">
+                            這是一種極端惡劣的直銷詐騙手法。
+                            詐騙分子會誘導新手投資不明「私募幣」，待暴跌後還大言不慚。
+                            若您遇到任何索取個人私密照、無遮蓋證件、或要求高額解鎖費的情況，請<strong class="text-amber-400">立即停止一切對話，切勿發送任何敏感資訊</strong>。
+                            儘速向警方 165 諮詢，保護自身實體人身與隱私安全。
+                        </div>
+                    </div>
+
+                    <!-- FAQ 4 -->
+                    <div class="p-5 rounded-xl bg-navy-900 border border-slate-800 transition-all duration-300">
+                        <button onclick="toggleFAQ(4)" class="w-full flex justify-between items-center text-left text-slate-200 hover:text-white font-bold text-sm sm:text-base">
+                            <span>💡 什麼是 FUD (Fear, Uncertainty, Doubt)？如何克服？</span>
+                            <i data-lucide="chevron-down" id="faq-icon-4" class="w-5 h-5 transition-transform duration-300"></i>
+                        </button>
+                        <div id="faq-answer-4" class="hidden mt-4 text-xs sm:text-sm text-slate-400 leading-relaxed pl-1.5 border-l-2 border-emerald-500/40">
+                            FUD 即為「恐懼、不確定性與懷疑」。
+                            最早源自 IBM 的銷售競爭手段。在幣圈，惡意競爭者或做空機構會利用媒體誇大負面新聞來製造大眾恐懼。
+                            克服 FUD 的關鍵在於「數據交叉驗證」。
+                            例如：檢查該交易所的鏈上資產儲備（Proof of Reserves）、智能合約是否安全，如果共識與底層機制完好，FUD 帶來的暴跌反而可能是市場底部的「黃金坑」。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- 頁腳 -->
+    <footer class="bg-navy-900 border-t border-slate-800 py-8 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex items-center justify-center space-x-2 text-slate-400 mb-3">
+                <i data-lucide="activity" class="w-4 h-4"></i>
+                <span class="font-bold">腦哥 Chill塊鏈 粉絲知識自保專案</span>
+            </div>
+            <p class="max-w-md mx-auto leading-relaxed">
+                免責聲明：本網站所提供之資訊、診斷器與測驗內容僅供教育推廣與資安防範教學使用，均不構成任何形式的投資建議 (Not Financial Advice, DYOR)。
+            </p>
+            <p class="mt-4">
+                © 2026 腦哥學堂 & 鏈習生資安小組. All Rights Reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- 模擬簽署合約 Modal (彈出視窗) -->
+    <div id="signature-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
+        <div class="bg-navy-900 border border-slate-800 rounded-2xl p-6 w-full max-w-sm shadow-2xl">
+            <div class="flex justify-between items-center pb-3 border-b border-slate-800 mb-4">
+                <div class="flex items-center gap-1.5">
+                    <span class="h-2 w-2 rounded-full bg-amber-500"></span>
+                    <h3 class="font-bold text-sm text-slate-200 font-mono">MetaMask 授權變更簽署</h3>
+                </div>
+                <button onclick="closeSignatureModal()" class="text-slate-500 hover:text-slate-300">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            
+            <p class="text-xs text-slate-400 mb-4 leading-relaxed">
+                您正在申請修改代幣的合約授權。此操作將與區塊鏈智能合約進行互動，解除無限取款權。
+            </p>
+
+            <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 text-[11px] font-mono text-slate-300 space-y-1 mb-4">
+                <div><strong>方法 (Method):</strong> <span class="text-amber-400">revokeApproval</span></div>
+                <div><strong>目標合約 (To):</strong> <span id="modal-contract-address">0x628...91A</span></div>
+                <div><strong>操作資產 (Asset):</strong> <span id="modal-asset-name">USDT</span></div>
+                <div><strong>最大權限 (Allowance):</strong> <span class="text-rose-500">0.00 (解除)</span></div>
+            </div>
+
+            <div class="flex gap-3">
+                <button onclick="closeSignatureModal()" class="flex-1 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-bold transition-all">
+                    取消
+                </button>
+                <button onclick="confirmRevokeAction()" class="flex-1 py-2 bg-emerald-500 hover:bg-emerald-600 text-navy-950 rounded-lg text-xs font-bold transition-all">
+                    確認 Revoke
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 自訂通知訊息 UI -->
+    <div id="toast" class="fixed top-20 right-4 z-50 transform translate-x-full transition-all duration-300 p-4 rounded-xl bg-emerald-500 text-navy-950 shadow-lg font-bold text-xs flex items-center gap-2">
+        <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+        <span id="toast-message">操作成功！</span>
+    </div>
+
+    <!-- JavaScript 交互程式碼 -->
+    <script>
+        // ==============================================
+        // 核心資料庫 (基於上傳的 NotebookLM 文本提煉)
+        // ==============================================
+        const articlesData = [
+            {
+                id: 1,
+                category: 'security',
+                title: 'DeFi 降伏大絕：Revoke 功能取消授權完整教學',
+                excerpt: '避免 99% 的駭客搬空你的錢包。一鍵了解什麼是智能合約授權與無限 Allowance 帶來的致命風險。',
+                content: `如果你使用過熱門的 DeFi 項目、去中心化交易所或跨鏈橋，你可能在不知不覺中給予了合約「無限取款 (Unlimited Allowance)」授權。一旦平台遭受攻擊，即使你的私鑰妥善保管，駭客依然能轉走你的代幣。
+                
+                <strong>💡 解除方法：</strong>
+                1. 連接 <strong>Revoke.cash</strong> 可即時查詢各大鏈（Ethereum、BSC 等）之授權。
+                2. 使用區塊鏈瀏覽器官方工具：在以太坊 Etherscan 點擊「Token Approvals」，連結錢包即可一鍵 Revoke（撤回）危險授權。`,
+                readTime: '4 min'
+            },
+            {
+                id: 2,
+                category: 'security',
+                title: '冷錢包資安神盾：CoolWallet 的雙重防禦防釣魚心法',
+                excerpt: 'DeFi 新手必備！了解冷錢包的實體按鍵與二次簽署機制，如何成為你防禦假空投網站的最後一道防線。',
+                content: `台灣科技大廠庫幣科技（CoolBitX）自 2014 年成立、2016 年推出第一代卡片型藍牙冷錢包。其最大特色是兼顧藍牙手機 app 的便利度與實體硬體「按鍵確認」的絕對安全。
+                
+                其晶片擁有 CC EAL5+ 及 EAL6+ 高級安全防禦認證。在面臨詐騙空投釣魚網站時，CoolWallet App 內建的智能合約防釣魚檢測會彈出提示，防止用戶誤簽惡意合約。`,
+                readTime: '5 min'
+            },
+            {
+                id: 3,
+                category: 'scam',
+                title: '認清 GROK72 洗版留言！破解社群釣魚的底層邏輯',
+                excerpt: 'YouTube 留言區總看到有人吹噓「BlackRock 承認了 GROK72」？帶你洞察假帳號如何製造焦慮引導受害者。',
+                content: `在許多加密貨幣 YouTube 影片的下方留言區，常能看見大量假帳號同步發表諸如：「BlackRock 再次認證了 GROK72/GR725F，一起起飛！」等留言。
+                
+                <strong>這是不折不扣的「社群洗版詐騙」。</strong> 
+                詐騙集團運用自動化機器人群控大量假帳號，假造熱鬧討論假象。一旦你出於好奇搜索並點擊造假的「新幣官方網站」或進行購買，代幣將完全被鎖定無法賣出，或者是你的錢包授權被直接竊取。`,
+                readTime: '3 min'
+            },
+            {
+                id: 4,
+                category: 'scam',
+                title: '私募幣直銷盤：別信高回報，拒絕任何私密照要挾',
+                excerpt: '從真實受害者案例，解讀高危私募盤暴跌套路，以及駭人聽聞的私密隱私威脅手段。',
+                content: `在「柳柳受害者真實分享」中，有心人士常透過直銷、拉人頭或「網戀」形式包裝尚未上市的「私募幣」。購買後代幣不僅在一夜之間暴跌 99% 以上，甚至還會以「網貸需要、出金保障」等名義誘騙用戶拍下私密照片。
+                
+                <strong>🚨 腦哥嚴正提醒：</strong>
+                合法項目方絕不會主動要求你提供任何不雅或私密個人照片。如果遇到任何此類威脅，請不要聽從其擺佈，立刻蒐證並報警！`,
+                readTime: '6 min'
+            },
+            {
+                id: 5,
+                category: 'mindset',
+                title: '牛市總是十買九虧？「不賺不屬於你的錢」觀念建立',
+                excerpt: '為什麼老牌大幣 (ADA, XRP) 或迷因幣瘋漲時，盲目追高是虧損源頭？揭秘 OG 的心態優勢。',
+                content: `當市場被 XRP、ADA 或熱門 AI Agent 迷因幣的暴漲訊息塞滿時，許多新手會感到強烈的 FOMO (Fear of Missing Out)。
+                
+                在還沒搞懂項目的核心邏輯（例如 SEC 主席更換的實際影響範圍）前，就盲目投入巨額資金，常導致買在山頂被套牢。
+                <strong>「不賺不屬於你的錢」</strong>是頂級交易員的心法。專注於你能理解、能進行深度研究的賽道，比碰運氣盲賭更能在幣圈生存。`,
+                readTime: '5 min'
+            },
+            {
+                id: 6,
+                category: 'macro',
+                title: '歷史性比特幣減半：四年一輪的供需再分配遊戲',
+                excerpt: '四年一度的區塊獎勵減半完成，到底會創造出黃金坑還是砸盤噩夢？宏觀週期核心剖析。',
+                content: `比特幣的第四次減半在 2024 年完成，區塊產量從 6.25 BTC 減至 3.125 BTC。產量減半意味著發行供給速度下降，長期而言對價格具有強烈的通貨緊縮支撐。
+                
+                然而在短期，伴隨著減半事件前後，華爾街機構看空、聯準會利率表態、地緣政治（如伊朗戰爭）等黑天鵝爆發，市場常大幅震盪。新手不宜過高槓桿，應在極度恐慌時尋找現貨分批配置的黃金機會。`,
+                readTime: '4 min'
+            }
+        ];
+
+        // 模擬授權合約資料
+        let simulatedAllowances = [
+            { id: 101, token: 'USDT', contract: 'GrokPrivateSalePool', name: '不明私募池 (GROK72)', allowance: '無限額 ♾️', risk: 'Critical', riskColor: 'text-rose-500 bg-rose-500/10 border-rose-500/20', address: '0x9d20...119A', amount: '$35,000' },
+            { id: 102, token: 'USDC', contract: 'DydxV3Router', name: 'dYdX 遷移合約 (已過期)', allowance: '無限額 ♾️', risk: 'Medium', riskColor: 'text-amber-400 bg-amber-500/10 border-amber-500/20', address: '0x028c...331B', amount: '$7,350' },
+            { id: 103, token: 'ETH', contract: 'UniswapV3Router', name: 'Uniswap V3 兌換中心', allowance: '無限額 ♾️', risk: 'Low', riskColor: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20', address: '0x6281...902A', amount: '$0' }
+        ];
+
+        // 測驗題庫庫
+        const quizQuestions = [
+            {
+                question: "當國際爆發黑天鵝事件（例如中東戰爭）導致比特幣在一夜之間大跌 10% 時，你第一時間的思維應該是？",
+                options: [
+                    { text: "A. 嚇死了，完蛋了！幣圈泡沫果然又破了，全倉割肉保平安。", score: 0 },
+                    { text: "B. 太爽了，立馬跟親友借錢，開 100 倍槓桿梭哈抄底，本多終勝！", score: 10 },
+                    { text: "C. 冷靜下來，檢查基本面與共識。若只是情緒性 FUD，這可能是個撿便宜現貨的「黃金坑」。", score: 25 }
+                ]
+            },
+            {
+                question: "您看到 YouTube 留言區出現十幾個人極力吹噓「某新幣 (例如 GROK72) 即將暴漲 100 倍，BlackRock 已經重倉，附帶新聞連結」，你會？",
+                options: [
+                    { text: "A. 機不可失！跟著機構與社群大佬走，立馬連線錢包去參與該幣私募！", score: 0 },
+                    { text: "B. 這是 100% 機器人假帳號群控洗版。不亂搜索、不隨意點擊、不給予任何錢包授權。", score: 25 },
+                    { text: "C. 在留言區附和，既然大家都說會漲，先買個 200U 玩玩看。", score: 5 }
+                ]
+            },
+            {
+                question: "如果您之前使用的某個 DeFi 項目爆出駭客入侵、或項目方有跑路嫌疑，保護錢包的第一個動作是？",
+                options: [
+                    { text: "A. 只要我的冷錢包放在保險箱裡就 100% 安全，什麼都不用做。", score: 5 },
+                    { text: "B. 立即使用 Revoke.cash 或 Etherscan 的 Token Approvals 撤回對該項目的智能合約代幣授權。", score: 25 },
+                    { text: "C. 趕快把助記詞抄在手機便簽發給客服，請他幫我處理防禦。", score: 0 }
+                ]
+            },
+            {
+                question: "當某個老牌大市值代幣（例如 XRP / ADA）在短短幾天內暴漲 50%，你此時根本還沒上車，該如何安放思維？",
+                options: [
+                    { text: "A. 告訴自己「不賺不屬於我的錢」，沒研究透徹前不跟風追高，避免在牛市被甩車買在山頂。", score: 25 },
+                    { text: "B. 頂不住了，眼看著別人都發財了，全倉市價追進去，絕不當沒賺到的傻子！", score: 0 },
+                    { text: "C. 決定改玩高槓桿的合約做空它，賭它一定會回調拉稀。", score: 10 }
+                ]
+            }
+        ];
+
+        let currentQuizIndex = 0;
+        let quizUserScore = 0;
+        let activeCategory = 'all';
+        let currentRevokeTarget = null;
+
+        // 初始化
+        window.onload = function() {
+            // 初始化 Lucide Icons
+            lucide.createIcons();
+            // 渲染文章
+            renderArticles();
+            // 渲染授權模擬列表
+            renderSimulatedAllowances();
+        }
+
+        // ==============================================
+        // TAB 切換邏輯
+        // ==============================================
+        function switchTab(tabId) {
+            // 隱藏所有 tab 內容
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.add('hidden');
+                el.classList.remove('block');
+            });
+            // 顯示當前 tab
+            const activeTab = document.getElementById('tab-' + tabId);
+            if (activeTab) {
+                activeTab.classList.remove('hidden');
+                activeTab.classList.add('block');
+            }
+
+            // 更新導航欄樣式 (桌面端)
+            const navIds = ['library', 'diagnoser', 'revoke-sim', 'quiz', 'faq'];
+            navIds.forEach(id => {
+                const btn = document.getElementById('nav-' + id);
+                if (btn) {
+                    if (id === tabId) {
+                        btn.classList.add('text-emerald-400', 'bg-slate-800/50');
+                        btn.classList.remove('text-slate-400', 'hover:text-slate-200');
+                    } else {
+                        btn.classList.remove('text-emerald-400', 'bg-slate-800/50');
+                        btn.classList.add('text-slate-400', 'hover:text-slate-200');
+                    }
+                }
+            });
+
+            // 更新導航底欄 (行動端)
+            navIds.forEach(id => {
+                const mBtn = document.getElementById('m-nav-' + id);
+                if (mBtn) {
+                    if (id === tabId) {
+                        mBtn.classList.add('text-emerald-400');
+                        mBtn.classList.remove('text-slate-400');
+                    } else {
+                        mBtn.classList.remove('text-emerald-400');
+                        mBtn.classList.add('text-slate-400');
+                    }
+                }
+            });
+        }
+
+        // ==============================================
+        // 知識庫搜尋與篩選邏輯
+        // ==============================================
+        function renderArticles() {
+            const grid = document.getElementById('articles-grid');
+            grid.innerHTML = '';
+            
+            const keyword = document.getElementById('search-input').value.toLowerCase();
+
+            const filtered = articlesData.filter(article => {
+                // 分類篩選
+                const matchCategory = activeCategory === 'all' || article.category === activeCategory;
+                // 關鍵字篩選
+                const matchKeyword = article.title.toLowerCase().includes(keyword) || 
+                                     article.excerpt.toLowerCase().includes(keyword) ||
+                                     article.content.toLowerCase().includes(keyword);
+                return matchCategory && matchKeyword;
+            });
+
+            if (filtered.length === 0) {
+                document.getElementById('no-results').classList.remove('hidden');
+                return;
+            } else {
+                document.getElementById('no-results').classList.add('hidden');
+            }
+
+            filtered.forEach(article => {
+                const card = document.createElement('div');
+                card.className = "bg-navy-900 border border-slate-800 rounded-2xl p-6 hover:border-slate-700/80 transition-all flex flex-col justify-between h-full group relative overflow-hidden";
+                
+                // 分類標籤樣式
+                let catText = '資安防駭';
+                let catColor = 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
+                if (article.category === 'scam') {
+                    catText = '詐騙防範';
+                    catColor = 'bg-rose-500/10 text-rose-400 border-rose-500/20';
+                } else if (article.category === 'mindset') {
+                    catText = '交易心態';
+                    catColor = 'bg-amber-500/10 text-amber-400 border-amber-500/20';
+                } else if (article.category === 'macro') {
+                    catText = '宏觀減半';
+                    catColor = 'bg-blue-500/10 text-blue-400 border-blue-500/20';
+                }
+
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${catColor}">${catText}</span>
+                            <span class="text-[10px] text-slate-500 flex items-center gap-1">
+                                <i data-lucide="clock" class="w-3 h-3"></i> ${article.readTime}
+                            </span>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-200 group-hover:text-emerald-400 transition-colors duration-200">${article.title}</h3>
+                        <p class="text-xs text-slate-400 mt-2.5 line-clamp-3 leading-relaxed">${article.excerpt}</p>
+                    </div>
+                    
+                    <div class="mt-6 pt-4 border-t border-slate-800 flex justify-between items-center">
+                        <button onclick="openArticleModal(${article.id})" class="text-xs text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-1 transition-colors">
+                            展開閱讀全文 <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        function filterCategory(cat) {
+            activeCategory = cat;
+            const cats = ['all', 'security', 'scam', 'mindset', 'macro'];
+            cats.forEach(c => {
+                const btn = document.getElementById('btn-cat-' + c);
+                if (btn) {
+                    if (c === cat) {
+                        btn.classList.add('bg-slate-800', 'text-emerald-400');
+                        btn.classList.remove('bg-navy-900', 'text-slate-400');
+                    } else {
+                        btn.classList.remove('bg-slate-800', 'text-emerald-400');
+                        btn.classList.add('bg-navy-900', 'text-slate-400');
+                    }
+                }
+            });
+            renderArticles();
+        }
+
+        function filterArticles() {
+            renderArticles();
+        }
+
+        // 彈出式閱讀 Modal
+        function openArticleModal(id) {
+            const article = articlesData.find(a => a.id === id);
+            if (!article) return;
+
+            const modalId = 'article-read-modal';
+            // 移除舊的
+            const old = document.getElementById(modalId);
+            if (old) old.remove();
+
+            const modal = document.createElement('div');
+            modal.id = modalId;
+            modal.className = "fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm px-4";
+            
+            modal.innerHTML = `
+                <div class="bg-navy-900 border border-slate-800 rounded-2xl p-6 w-full max-w-lg max-h-[85vh] overflow-y-auto shadow-2xl relative">
+                    <button onclick="document.getElementById('${modalId}').remove()" class="absolute top-4 right-4 text-slate-500 hover:text-slate-300">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                    <div class="pr-6">
+                        <h2 class="text-lg sm:text-xl font-black text-slate-100 leading-snug">${article.title}</h2>
+                        <p class="text-[10px] text-slate-500 mt-2 flex items-center gap-1">
+                            <i data-lucide="clock" class="w-3.5 h-3.5"></i> 預估閱讀時間：${article.readTime}
+                        </p>
+                        
+                        <div class="mt-4 text-xs sm:text-sm text-slate-300 leading-relaxed space-y-4 pt-4 border-t border-slate-800">
+                            ${article.content.replace(/\n/g, '<br>')}
+                        </div>
+                        
+                        <div class="mt-6 flex justify-end">
+                            <button onclick="document.getElementById('${modalId}').remove()" class="px-5 py-2 bg-emerald-500 hover:bg-emerald-600 text-navy-950 text-xs font-bold rounded-xl transition-all">
+                                我已學到，關閉本頁
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            lucide.createIcons();
+        }
+
+        // ==============================================
+        // 防詐騙診斷器邏輯
+        // ==============================================
+        function calculateScamRisk() {
+            const form = document.getElementById('diagnoser-form');
+            const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+            let score = 0;
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    score += parseInt(cb.value);
+                }
+            });
+
+            // 封頂 100
+            if (score > 100) score = 100;
+
+            const textEl = document.getElementById('risk-score-text');
+            const barEl = document.getElementById('risk-bar');
+            const badgeEl = document.getElementById('risk-badge');
+            const tipsEl = document.getElementById('risk-tips');
+
+            textEl.innerText = score + '%';
+            barEl.style.width = score + '%';
+
+            // 動態更新進度條顏色
+            barEl.className = 'h-full transition-all duration-500';
+            if (score < 30) {
+                barEl.classList.add('bg-emerald-500');
+                badgeEl.className = 'mb-6 px-4 py-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold flex items-center gap-2';
+                badgeEl.innerHTML = `<i data-lucide="check-circle" class="w-5 h-5 flex-shrink-0"></i><span>目前安全：無顯著詐騙風險。</span>`;
+                tipsEl.innerHTML = `
+                    <li>始終牢記「不賺不屬於你的錢」。遇到不懂的代幣，絕對不要盲目梭哈。</li>
+                    <li>項目方的背景需要交叉驗證。正規活動絕對不會以「私人私訊」方式要求您購買。</li>
+                `;
+            } else if (score < 60) {
+                barEl.classList.add('bg-amber-500');
+                badgeEl.className = 'mb-6 px-4 py-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold flex items-center gap-2';
+                badgeEl.innerHTML = `<i data-lucide="alert-triangle" class="w-5 h-5 flex-shrink-0"></i><span>中度警惕：項目存在可疑特徵，請勿輕易授權錢包。</span>`;
+                tipsEl.innerHTML = `
+                    <li><strong>防備 FOMO 心態：</strong>凡是主打「名額有限、不買虧死」的往往是詐騙鐮刀盤，請冷靜停看聽。</li>
+                    <li><strong>嚴禁輕信留言：</strong>YouTube 下方諸如 GROK72 等洗版式大牌推薦是 100% 惡意機器人。</li>
+                `;
+            } else {
+                barEl.classList.add('bg-rose-500');
+                badgeEl.className = 'mb-6 px-4 py-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-semibold flex items-center gap-2';
+                badgeEl.innerHTML = `<i data-lucide="skull" class="w-5 h-5 flex-shrink-0"></i><span>高度危險：強烈建議立即斷開連結、拒絕一切資金往來！</span>`;
+                tipsEl.innerHTML = `
+                    <li><strong>出金費用陷阱：</strong>如 JPEX 一般高達 99.9% 的手續費完全是跑路前置套路。</li>
+                    <li><strong>隱私安全第一：</strong>任何索要私密不雅照的均為非法恐嚇集團，切勿妥協，請保存證據即刻報警！</li>
+                    <li>請立即檢查錢包的合約授權情況，若有互動過，儘速利用 <strong>Revoke 模擬器</strong> 學會取消！</li>
+                `;
+            }
+            lucide.createIcons();
+        }
+
+        function resetDiagnoser() {
+            document.getElementById('diagnoser-form').reset();
+            calculateScamRisk();
+            showToast('已重設診斷狀態');
+        }
+
+        // ==============================================
+        // 互動式授權解除模擬器 (Revoke Simulator)
+        // ==============================================
+        function renderSimulatedAllowances() {
+            const listContainer = document.getElementById('allowance-list');
+            listContainer.innerHTML = '';
+
+            let totalExposed = 0;
+
+            simulatedAllowances.forEach(item => {
+                if (item.allowance !== '0.00 (已撤銷)') {
+                    const cleanAmount = parseInt(item.amount.replace(/[^0-9]/g, ''));
+                    totalExposed += cleanAmount;
+                }
+
+                const card = document.createElement('div');
+                card.className = "p-4 rounded-xl border border-slate-800 bg-slate-950 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:border-slate-700/60 transition-all";
+                
+                card.innerHTML = `
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2 py-0.5 rounded-md font-mono text-xs font-bold bg-slate-800 text-slate-300">${item.token}</span>
+                            <span class="text-xs text-slate-400 font-mono">${item.address}</span>
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded border ${item.riskColor}">${item.risk}</span>
+                        </div>
+                        <div class="text-sm font-bold text-slate-200">${item.name}</div>
+                        <div class="text-[11px] text-slate-500">
+                            授權上限額度: <span class="font-mono text-slate-400">${item.allowance}</span>
+                            ${item.allowance !== '0.00 (已撤銷)' ? `· 受威脅估值: <span class="text-amber-500 font-bold">${item.amount}</span>` : ''}
+                        </div>
+                    </div>
+                    <div>
+                        ${item.allowance !== '0.00 (已撤銷)' 
+                            ? `<button onclick="openSignatureModal(${item.id})" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-navy-950 text-xs font-bold rounded-lg transition-all flex items-center gap-1">
+                                <i data-lucide="power-off" class="w-3.5 h-3.5"></i> 解除授權 (Revoke)
+                               </button>`
+                            : `<span class="text-xs text-slate-500 flex items-center gap-1 font-semibold">
+                                <i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> 已完全自保
+                               </span>`
+                        }
+                    </div>
+                `;
+                listContainer.appendChild(card);
+            });
+
+            document.getElementById('exposed-balance').innerText = `$${totalExposed.toLocaleString()} USDT`;
+            lucide.createIcons();
+        }
+
+        function openSignatureModal(id) {
+            const item = simulatedAllowances.find(a => a.id === id);
+            if (!item) return;
+            currentRevokeTarget = item;
+
+            document.getElementById('modal-contract-address').innerText = item.address;
+            document.getElementById('modal-asset-name').innerText = item.token;
+            
+            const modal = document.getElementById('signature-modal');
+            modal.classList.remove('hidden');
+        }
+
+        function closeSignatureModal() {
+            document.getElementById('signature-modal').classList.add('hidden');
+            currentRevokeTarget = null;
+        }
+
+        function confirmRevokeAction() {
+            if (!currentRevokeTarget) return;
+
+            // 執行模擬解除
+            currentRevokeTarget.allowance = '0.00 (已撤銷)';
+            currentRevokeTarget.risk = 'Resolved';
+            currentRevokeTarget.riskColor = 'text-slate-500 bg-slate-800 border-slate-700';
+
+            closeSignatureModal();
+            renderSimulatedAllowances();
+            showToast(`成功撤銷對 ${currentRevokeTarget.name} 的合約授權！`);
+        }
+
+        // ==============================================
+        // 韭菜退散心態測驗 (Mindset Quiz)
+        // ==============================================
+        function startQuiz() {
+            document.getElementById('quiz-intro').classList.add('hidden');
+            document.getElementById('quiz-question-container').classList.remove('hidden');
+            document.getElementById('quiz-result-container').classList.add('hidden');
+            
+            currentQuizIndex = 0;
+            quizUserScore = 0;
+            loadQuizQuestion();
+        }
+
+        function loadQuizQuestion() {
+            const progressText = document.getElementById('quiz-progress-text');
+            const progressBar = document.getElementById('quiz-progress-bar');
+            const questionTitle = document.getElementById('quiz-question-title');
+            const optionsContainer = document.getElementById('quiz-options');
+
+            const q = quizQuestions[currentQuizIndex];
+            
+            // 進度更新
+            progressText.innerText = `問題 ${currentQuizIndex + 1} of ${quizQuestions.length}`;
+            progressBar.style.width = ((currentQuizIndex + 1) / quizQuestions.length) * 100 + '%';
+
+            // 題目與選項
+            questionTitle.innerText = q.question;
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-4 rounded-xl border border-slate-800 bg-slate-950/80 hover:bg-slate-800 hover:border-slate-700 text-xs sm:text-sm text-slate-300 hover:text-white transition-all duration-200 leading-relaxed";
+                btn.onclick = () => selectQuizOption(opt.score);
+                btn.innerText = opt.text;
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectQuizOption(score) {
+            quizUserScore += score;
+            currentQuizIndex++;
+
+            if (currentQuizIndex < quizQuestions.length) {
+                loadQuizQuestion();
+            } else {
+                showQuizResult();
+            }
+        }
+
+        function showQuizResult() {
+            document.getElementById('quiz-question-container').classList.add('hidden');
+            document.getElementById('quiz-result-container').classList.remove('hidden');
+
+            const scoreEl = document.getElementById('quiz-score');
+            const rankTitleEl = document.getElementById('quiz-rank-title');
+            const rankDescEl = document.getElementById('quiz-rank-desc');
+
+            scoreEl.innerText = quizUserScore;
+
+            if (quizUserScore >= 90) {
+                rankTitleEl.innerText = "幣圈硬派大師 (OG級)";
+                rankTitleEl.className = "text-xl font-black text-emerald-400 mt-2";
+                rankDescEl.innerText = "恭喜你！你具備了極度理性的抗鐮刀思維。面對 FUD 毫無波動，掌握了 Revoke 等高級自保工具，也理解「本多終勝、不賺不屬於你的錢」的智慧。你在這個市場活得會比 99% 的人都長！";
+            } else if (quizUserScore >= 60) {
+                rankTitleEl.innerText = "進階探索水手 (小資理智派)";
+                rankTitleEl.className = "text-xl font-black text-amber-400 mt-2";
+                rankDescEl.innerText = "你具備不錯的防守觀念，不容易輕信 GROK72 洗版之類的直銷詐騙。然而在面臨黑天鵝市場暴跌或踏空 FOMO 時，你的心態仍會微微動搖。建議多看幾次「腦哥心法」，加固信仰。";
+            } else {
+                rankTitleEl.innerText = "待宰小韭菜 (韭星高照級)";
+                rankTitleEl.className = "text-xl font-black text-rose-500 mt-2";
+                rankDescEl.innerText = "警報響起！你目前的心態充滿賭徒性質：容易因戰爭黑天鵝全倉割肉、又喜歡盲目追高老牌幣。對冷錢包、解除授權工具也缺乏掌握。請好好複習「知識防禦庫」，否則學費很快就會繳光！";
+            }
+        }
+
+        function restartQuiz() {
+            startQuiz();
+        }
+
+        // ==============================================
+        // FAQ 收摺選單邏輯
+        // ==============================================
+        function toggleFAQ(id) {
+            const answer = document.getElementById('faq-answer-' + id);
+            const icon = document.getElementById('faq-icon-' + id);
+            
+            if (answer.classList.contains('hidden')) {
+                answer.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                answer.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // ==============================================
+        // Toast 自訂通知工具 (無 Alert 阻礙)
+        // ==============================================
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const msgEl = document.getElementById('toast-message');
+            
+            msgEl.innerText = message;
+            toast.classList.remove('translate-x-full');
+            toast.classList.add('translate-x-0');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-x-0');
+                toast.classList.add('translate-x-full');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
